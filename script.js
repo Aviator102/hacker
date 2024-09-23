@@ -124,3 +124,11 @@ document.getElementById('consultarBtn').addEventListener('click', () => {
     consultarResultados();
     fetchOddsMaiorQueDez(document.getElementById('betHouseSelector').value);
 });
+
+// Evento para limpar resultados e console ao mudar de aposta
+document.getElementById('betHouseSelector').addEventListener('change', () => {
+    // Limpa os resultados e o console ao mudar a seleção
+    document.getElementById('resultados').innerHTML = '<h2>Últimas Velas Rosas</h2>';
+    document.getElementById('resultadosOdds').innerHTML = '<h2>Previsão de Vela Rosa</h2>';
+    document.getElementById('console').innerHTML = '';
+});
