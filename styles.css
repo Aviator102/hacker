@@ -1,0 +1,8 @@
+body{font-family:'Courier New',monospace;background-color:#0d0d0d;color:#00ff00;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;padding:20px;}
+h1{font-size:2rem;margin-bottom:20px;text-align:center;}
+.resultado{background-color:#1a1a1a;border-radius:8px;padding:15px;margin:10px 0;width:100%;max-width:400px;text-align:center;box-shadow:0 0 10px rgba(0,255,0,0.5);opacity:0;transition:opacity 0.5s ease-in;}
+button{background-color:#00cc00;color:#000;border:none;padding:10px 20px;font-size:1rem;cursor:pointer;transition:background-color 0.3s;width:100%;max-width:200px;margin-bottom:20px;}
+button:hover{background-color:#00ff00;}
+#console{width:100%;max-width:600px;height:200px;overflow:auto;white-space:pre;font-size:1rem;line-height:1.2;margin-top:20px;border:1px solid #00ff00;padding:10px;}
+#resultados h2,#resultadosOdds h2{margin:0 0 10px 0;font-size:1.5rem;}
+@media (max-width:600px){h1{font-size:1.5rem;}.resultado{padding:10px;}button{font-size:0.9rem;}#console{height:150px;}#resultados h2,#resultadosOdds h2{font-size:1.2rem;}}
