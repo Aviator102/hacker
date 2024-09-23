@@ -1,5 +1,126 @@
-async function a(){const b=new Date;b.setDate(b.getDate()-1);const c=b.toISOString().split("T")[0];try{const d=await fetch(`https://api-aviator-cb5db3cad4c0.herokuapp.com/history-filter-odd?date=${c}&numberVelas=10000&betHouse=Aposta_ganha&filter=10`);return await d.json()}catch(e){console.error("Erro ao buscar resultados:",e),document.getElementById("b").innerHTML="Erro ao buscar resultados.";return[]}}
+async function fetchResultados(betHouse) {
+    const dataEscolhida = new Date();
+    dataEscolhida.setDate(dataEscolhida.getDate() - 1);
+    const dataFormatada = dataEscolhida.toISOString().split('T')[0];
 
-function c(d){const e=document.getElementById("b");e.innerHTML="";if(d){const f=document.createElement("div");f.className="c ultimo",f.innerHTML=`<span>Hora: ${d.hour}</span>`,e.appendChild(f)}else e.innerHTML="Nenhum resultado encontrado com odds maiores que 10 após a hora atual."}
+    try {
+        const response = await fetch(`https://api-aviator-cb5db3cad4c0.herokuapp.com/history-filter-odd?date=${dataFormatada}&numberVelas=10000&betHouse=${betHouse}&filter=10`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao buscar resultados:', error);
+        logToConsole('Erro ao buscar resultados.');
+        return [];
+    }
+}
 
-async function g(){const h=await a(),e=document.getElementById("b");e.innerHTML="";const i=new Date,j={timeZone:"America/Sao_Paulo",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:!1},k=new Intl.DateTimeFormat("pt-BR",j).format(i);const[l,m,n]=k.split(":").map(Number),o=new Date;o.setHours(l,m,n,0);const p=h.filter(q=>{const[r,s,t]=q.hour.split(":").map(Number),u=new Date;return u.setHours(r,s,t,0),u>o});c(p.pop())}document.getElementById("a").addEventListener("click",g);
+async function fetchOddsMaiorQueDez(betHouse) {
+    const dataAtual = new Date();
+    const dataFormatada = dataAtual.toISOString().split('T')[0];
+
+    try {
+        const response = await fetch(`https://api-aviator-cb5db3cad4c0.herokuapp.com/history-filter-odd?date=${dataFormatada}&numberVelas=10000&betHouse=${betHouse}&filter=10`);
+        const data = await response.json();
+
+        const oddsMaiorQueDez = data.filter(item => parseFloat(item.odd) > 10);
+        
+        const resultadosOddsDiv = document.getElementById('resultadosOdds');
+        resultadosOddsDiv.innerHTML = '<h2>Últimas Velas Rosas</h2>'; // Título atualizado
+        if (oddsMaiorQueDez.length > 0) {
+            for (let i = 0; i < Math.min(3, oddsMaiorQueDez.length); i++) {
+                const item = oddsMaiorQueDez[i];
+                logToConsole(`Horário: ${item.hour}, Vela: ${item.odd}`);
+                resultadosOddsDiv.innerHTML += `Horário: ${item.hour}, Vela: ${item.odd}<br>`;
+            }
+            const agora = new Date();
+            const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const horaAtualBrasilia = new Intl.DateTimeFormat('pt-BR', options).format(agora);
+            resultadosOddsDiv.innerHTML += `<br>Horário atual de Brasília: ${horaAtualBrasilia}`;
+        } else {
+            resultadosOddsDiv.innerHTML = 'Nenhuma odd encontrada maior que 10.';
+        }
+        resultadosOddsDiv.style.opacity = 1;
+    } catch (error) {
+        console.error('Erro ao buscar odds:', error);
+        logToConsole('Erro ao buscar odds.');
+    }
+}
+
+function logToConsole(message) {
+    const consoleDiv = document.getElementById('console');
+    consoleDiv.innerHTML += message + '\n';
+    consoleDiv.scrollTop = consoleDiv.scrollHeight;
+}
+
+function simulateTerminal() {
+    const messages = [
+        "Iniciando processo de cálculo...",
+        "Aguardando resposta do servidor...",
+        "Analisando dados obtidos...",
+        "Calculando Sementes: Sementes do servidor em progresso...",
+        "Calculando SHA-256: hash em progresso...",
+        "Hash calculado com sucesso!",
+        "Preparando resultados para exibição...",
+        "Resultado encontrado, exibindo...",
+        "Finalizando consulta..."
+    ];
+    let count = 0;
+
+    const interval = setInterval(() => {
+        logToConsole(messages[count % messages.length]);
+        count++;
+        if (count > messages.length) {
+            clearInterval(interval);
+        }
+    }, 1000);
+}
+
+async function consultarResultados() {
+    const betHouse = document.getElementById('betHouseSelector').value;
+    logToConsole('Consultando resultados...');
+    simulateTerminal();
+
+    const resultados = await fetchResultados(betHouse);
+
+    const agora = new Date();
+    const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const horaAtualBrasilia = new Intl.DateTimeFormat('pt-BR', options).format(agora);
+
+    const resultadosFuturos = resultados.filter(item => {
+        const [hora, minuto, segundo] = item.hour.split(':').map(Number);
+        const horaEvento = new Date();
+        horaEvento.setHours(hora, minuto, segundo, 0);
+        return horaEvento > agora;
+    });
+
+    const resultadosDiv = document.getElementById('resultados');
+    resultadosDiv.style.opacity = 0;
+
+    if (resultadosFuturos.length > 0) {
+        const ultimoResultado = resultadosFuturos.pop();
+        const horarioOriginal = new Date();
+        horarioOriginal.setHours(...ultimoResultado.hour.split(':'));
+
+        const horariosPrevistos = [
+            new Date(horarioOriginal.getTime() - (65 * 1000)), // -1 minuto e 5 segundos
+            new Date(horarioOriginal.getTime()), // Horário original
+            new Date(horarioOriginal.getTime() + (63 * 1000)) // +1 minuto e 3 segundos
+        ];
+
+        resultadosDiv.innerHTML = '';
+        horariosPrevistos.forEach(horario => {
+            const horarioFormatado = horario.toLocaleTimeString('pt-BR', { hour12: false });
+            resultadosDiv.innerHTML += `Horário previsto: ${horarioFormatado}<br>`;
+        });
+
+        resultadosDiv.style.opacity = 1;
+    } else {
+        resultadosDiv.innerHTML = 'Nenhum resultado futuro encontrado.';
+        resultadosDiv.style.opacity = 1;
+    }
+}
+
+document.getElementById('consultarBtn').addEventListener('click', () => {
+    consultarResultados();
+    fetchOddsMaiorQueDez(document.getElementById('betHouseSelector').value);
+});
