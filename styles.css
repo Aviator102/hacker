@@ -9,11 +9,13 @@ body {
     margin: 0;
     padding: 20px;
 }
+
 h1 {
     font-size: 2rem;
     margin-bottom: 20px;
     text-align: center;
 }
+
 .resultado {
     background-color: #1a1a1a;
     border-radius: 8px;
@@ -26,6 +28,7 @@ h1 {
     opacity: 0;
     transition: opacity 0.5s ease-in;
 }
+
 button {
     background-color: #00cc00;
     color: #000;
@@ -37,9 +40,11 @@ button {
     width: 100%;
     max-width: 200px;
 }
+
 button:hover {
     background-color: #00ff00;
 }
+
 select {
     background-color: #1a1a1a;
     color: #00ff00;
@@ -50,6 +55,7 @@ select {
     width: 100%;
     max-width: 200px;
 }
+
 #console {
     width: 100%;
     max-width: 600px;
