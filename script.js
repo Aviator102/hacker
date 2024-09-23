@@ -69,7 +69,7 @@ function simulateTerminal() {
     const interval = setInterval(() => {
         logToConsole(messages[count % messages.length]);
         count++;
-        if (count > messages.length) {
+        if (count >= messages.length) {
             clearInterval(interval);
         }
     }, 1000);
@@ -128,7 +128,7 @@ document.getElementById('consultarBtn').addEventListener('click', () => {
 // Evento para limpar resultados e console ao mudar de aposta
 document.getElementById('betHouseSelector').addEventListener('change', () => {
     // Limpa os resultados e o console ao mudar a seleção
-    document.getElementById('resultados').innerHTML = '<h2>Últimas Velas Rosas</h2>';
-    document.getElementById('resultadosOdds').innerHTML = '<h2>Previsão de Vela Rosa</h2>';
-    document.getElementById('console').innerHTML = '';
+    document.getElementById('resultados').innerHTML = '<h2>Últimas Velas Rosas</h2>'; // Título inicial
+    document.getElementById('resultadosOdds').innerHTML = '<h2>Previsão de Vela Rosa</h2>'; // Título inicial
+    document.getElementById('console').innerHTML = ''; // Limpa o console
 });
