@@ -112,23 +112,3 @@ async function consultarResultados() {
             const horarioFormatado = horario.toLocaleTimeString('pt-BR', { hour12: false });
             resultadosDiv.innerHTML += Horário previsto: ${horarioFormatado}<br>;
         });
-
-        resultadosDiv.style.opacity = 1;
-    } else {
-        resultadosDiv.innerHTML = 'Nenhum resultado futuro encontrado.';
-        resultadosDiv.style.opacity = 1;
-    }
-}
-
-document.getElementById('consultarBtn').addEventListener('click', () => {
-    consultarResultados();
-    fetchOddsMaiorQueDez(document.getElementById('betHouseSelector').value);
-});
-
-// Evento para limpar resultados e console ao mudar de aposta
-document.getElementById('betHouseSelector').addEventListener('change', () => {
-    // Limpa os resultados e o console ao mudar a seleção
-    document.getElementById('resultados').innerHTML = '<h2>Últimas Velas Rosas</h2>'; // Título inicial
-    document.getElementById('resultadosOdds').innerHTML = '<h2>Previsão de Vela Rosa</h2>'; // Título inicial
-    document.getElementById('console').innerHTML = ''; // Limpa o console
-});
