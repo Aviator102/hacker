@@ -4,7 +4,7 @@ async function fetchResultados(betHouse) {
     const dataFormatada = dataEscolhida.toISOString().split('T')[0];
 
     try {
-        const response = await fetch(`https://api-aviator-cb5db3cad4c0.herokuapp.com/history-filter-odd?date=${dataFormatada}&numberVelas=10000&betHouse=${betHouse}&filter=10`);
+        const response = await fetch(https://api-aviator-cb5db3cad4c0.herokuapp.com/history-filter-odd?date=${dataFormatada}&numberVelas=10000&betHouse=${betHouse}&filter=10);
         const data = await response.json();
         return data;
     } catch (error) {
@@ -19,7 +19,7 @@ async function fetchOddsMaiorQueDez(betHouse) {
     const dataFormatada = dataAtual.toISOString().split('T')[0];
 
     try {
-        const response = await fetch(`https://api-aviator-cb5db3cad4c0.herokuapp.com/history-filter-odd?date=${dataFormatada}&numberVelas=10000&betHouse=${betHouse}&filter=10`);
+        const response = await fetch(https://api-aviator-cb5db3cad4c0.herokuapp.com/history-filter-odd?date=${dataFormatada}&numberVelas=10000&betHouse=${betHouse}&filter=10);
         const data = await response.json();
 
         const oddsMaiorQueDez = data.filter(item => parseFloat(item.odd) > 10);
@@ -29,13 +29,13 @@ async function fetchOddsMaiorQueDez(betHouse) {
         if (oddsMaiorQueDez.length > 0) {
             for (let i = 0; i < Math.min(3, oddsMaiorQueDez.length); i++) {
                 const item = oddsMaiorQueDez[i];
-                logToConsole(`Horário: ${item.hour}, Vela: ${item.odd}`);
-                resultadosOddsDiv.innerHTML += `Horário: ${item.hour}, Vela: ${item.odd}<br>`;
+                logToConsole(Horário: ${item.hour}, Vela: ${item.odd});
+                resultadosOddsDiv.innerHTML += Horário: ${item.hour}, Vela: ${item.odd}<br>;
             }
             const agora = new Date();
             const options = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
             const horaAtualBrasilia = new Intl.DateTimeFormat('pt-BR', options).format(agora);
-            resultadosOddsDiv.innerHTML += `<br>Horário atual de Brasília: ${horaAtualBrasilia}`;
+            resultadosOddsDiv.innerHTML += <br>Horário atual de Brasília: ${horaAtualBrasilia};
         } else {
             resultadosOddsDiv.innerHTML = 'Nenhuma odd encontrada maior que 10.';
         }
@@ -110,7 +110,7 @@ async function consultarResultados() {
         resultadosDiv.innerHTML = '';
         horariosPrevistos.forEach(horario => {
             const horarioFormatado = horario.toLocaleTimeString('pt-BR', { hour12: false });
-            resultadosDiv.innerHTML += `Horário previsto: ${horarioFormatado}<br>`;
+            resultadosDiv.innerHTML += Horário previsto: ${horarioFormatado}<br>;
         });
 
         resultadosDiv.style.opacity = 1;
