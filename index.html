@@ -8,26 +8,23 @@
     <style>
         .banner {
             width: 728px;
-            height: 90px;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #ddd;
+            height: auto;
             margin: 20px auto;
+            text-align: center;
         }
 
-        .banner a {
-            font-size: 24px;
-            color: #ffffff;
-            background-color: #007bff;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 5px;
+        .banner a img {
+            width: 100%;
+            max-width: 728px;
+            height: auto;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        .banner a:hover {
-            background-color: #0056b3;
+        .banner a img:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -45,10 +42,12 @@
     <div id="resultadosOdds" class="resultado">
         <h2>Previsão de Vela Rosa</h2>
     </div>
-    
+
     <!-- Banner de afiliado no rodapé -->
     <div class="banner">
-        <a href="https://www.dupoc.com/affiliates/?btag=1882826" target="_blank">Clique Aqui e Aproveite!</a>
+        <a href="https://www.dupoc.com/affiliates/?btag=1882826" target="_blank">
+            <img src="https://cms.fjykjczttspydxcx.com/storage/medias/dupoc-18756692/content_18756692_1629bc9aa25da9a9d28fe659f9583a68.webp" alt="Banner de Afiliado">
+        </a>
     </div>
 
     <script src="script.js"></script>
